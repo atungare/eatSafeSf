@@ -70,7 +70,7 @@ var linkTokenToId = function(req, res, id, token, phoneNum) {
     } else {
       res.redirect('/submitted');
     }
-  })
+  });
 };
 
 module.exports = router;

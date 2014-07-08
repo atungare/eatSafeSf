@@ -5,7 +5,7 @@ var client = require('twilio')(ACCOUNT_SID, AUTH_TOKEN);
 
 module.exports.sendMessage = function(number, messageBody){
   client.sendMessage({
-    to: '+1' + number,
+    to: number,
     from: '+19738137471',
     body: messageBody
   }, function(err, resp) {

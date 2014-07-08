@@ -2,23 +2,35 @@ var express = require('express');
 var router = express.Router();
 var twilio = require('../helpers/twilioClient.js');
 
+var Firebase = require('firebase');
+var fbRef = new Firebase('https://eatsafesf.firebaseio.com');
+var userNumbersRef = fbRef.child('userNumbers');
+
 /* GET home page. */
 router.get('/', function(req, res) {
   res.redirect('/');
 });
 
 router.post('/', function(req, res) {
-  console.log(req.body)
 
   var checkin = JSON.parse(req.body.checkin);
+  var venue = checkin.venue;
 
   var userId = checkin.user.id;
 
-  var venue = checkin.venue;
+  var userNum = userNumbersRef.child(userId);
 
-  // twilio.sendMessage('2019197623', 'foursquare post - server side checkin message');
+  userNum.once('value', function(numberSnapshot) {
+    if(numberSnapshot.val() !== null) {
+      var phoneNumber = '+1' + numberSnapshot.val();
+      var msg = 'You checked in to : "' + venue.name + '"';
+      twilio.sendMessage(phoneNumber, msg);
+    } else {
+      return;
+    }
+  })
 
-  console.log(checkin, userId, venue);
+  console.log(venue);
 
   res.end();
 });
