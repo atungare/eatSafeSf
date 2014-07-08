@@ -10,16 +10,16 @@ router.get('/', function(req, res) {
 router.post('/', function(req, res) {
   console.log(req.body)
 
-  var checkin = req.body;
+  var checkin = req.body[checkin];
 
   var userId = checkin.user.id;
 
   var venue = checkin.venue;
 
-  twilio.sendMessage('2019197623', 'foursquare post - server side checkin message');
+  // twilio.sendMessage('2019197623', 'foursquare post - server side checkin message');
 
   console.log(checkin, userId, venue);
-
+git psu
   res.end();
 });
 
