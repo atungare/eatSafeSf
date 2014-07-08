@@ -22,7 +22,7 @@ router.post('/', function(req, res) {
 
   userNum.once('value', function(numberSnapshot) {
     if(numberSnapshot.val() !== null) {
-      var phoneNumber = '+1' + numberSnapshot.val();
+      var phoneNumber = '+1' + numberSnapshot.val().number;
       var msg = 'You checked in to : "' + venue.name + '"';
       console.log(phoneNumber, msg);
       twilio.sendMessage(phoneNumber, msg);
