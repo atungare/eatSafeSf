@@ -10,7 +10,7 @@ router.get('/', function(req, res) {
 router.post('/', function(req, res) {
   console.log(req.body)
 
-  var checkin = req.body.checkingit;
+  var checkin = req.body.checkin;
 
   var userId = checkin.user.id;
 
