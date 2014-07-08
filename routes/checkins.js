@@ -19,7 +19,7 @@ router.post('/', function(req, res) {
   // twilio.sendMessage('2019197623', 'foursquare post - server side checkin message');
 
   console.log(checkin, userId, venue);
-git psu
+
   res.end();
 });
 
