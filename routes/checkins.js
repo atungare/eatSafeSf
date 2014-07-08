@@ -13,7 +13,7 @@ router.get('/', function(req, res) {
 
 router.post('/', function(req, res) {
   var checkin = JSON.parse(req.body.checkin);
-  checkVenueSafety(checkin);
+  checkVenueSafety(req, res, checkin);
   res.end();
 });
 
