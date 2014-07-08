@@ -12,28 +12,34 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', function(req, res) {
-
   var checkin = JSON.parse(req.body.checkin);
-  var venue = checkin.venue;
+  checkVenueSafety(checkin);
+  res.end();
+});
 
+var checkVenueSafety = function (req, res, checkin) {
+  var venue = checkin.venue;
+  console.log(venue);
+
+  if(checkin.venue.name[0] === 'S') {
+    sendAlertToUser(req, res, checkin);
+  }
+
+};
+
+var sendAlertToUser = function (req, res, checkin) {
   var userId = checkin.user.id;
 
   var userNum = userNumbersRef.child(userId);
-
   userNum.once('value', function(numberSnapshot) {
     if(numberSnapshot.val() !== null) {
       var phoneNumber = '+1' + numberSnapshot.val().number;
-      var msg = 'You checked in to : "' + venue.name + '"';
-      console.log(phoneNumber, msg);
+      var msg = 'Alert! "' + checkin.venue.name + '" starts with S';
       twilio.sendMessage(phoneNumber, msg);
     } else {
       return;
     }
   })
-
-  console.log(venue);
-
-  res.end();
-});
+};
 
 module.exports = router;
