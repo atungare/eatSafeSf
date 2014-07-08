@@ -16,7 +16,7 @@ router.get('/', function(req, res) {
 router.post('/', function(req, res) {
   var phoneNumber = req.body.phoneNumber;
 
-  var foursquareReqPath = '/oauth2/access_token?client_id=AYP154OVBTG4OMTGE0NTSI3HGUQH3INFLXOWNIO2T0LTONHU&client_secret=JXLWSILGW5ILQAYQ1DY4FLQFKNBLN01XLRDOTI3AESQVJCN1&grant_type=authorization_code&redirect_uri=https://eatsafesf.firebaseapp.com/enterNumber&code=' + req.url.slice(7);
+  var foursquareReqPath = '/oauth2/access_token?client_id=AYP154OVBTG4OMTGE0NTSI3HGUQH3INFLXOWNIO2T0LTONHU&client_secret=JXLWSILGW5ILQAYQ1DY4FLQFKNBLN01XLRDOTI3AESQVJCN1&grant_type=authorization_code&redirect_uri=http://eat-safe-sf-app.herokuapp.com/enterNumber&code=' + req.url.slice(7);
 
   getUserToken(req, res, foursquareReqPath, phoneNumber);
 });

@@ -3,9 +3,9 @@ var AUTH_TOKEN = 'b2f2c4d3eba14ced72ebbcea19b766a0';
 
 var client = require('twilio')(ACCOUNT_SID, AUTH_TOKEN);
 
-module.exports.sendMessage = function(messageBody){
+module.exports.sendMessage = function(number, messageBody){
   client.sendMessage({
-    to: '+12019197623',
+    to: '+1' + number,
     from: '+19738137471',
     body: messageBody
   }, function(err, resp) {
