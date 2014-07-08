@@ -5,6 +5,7 @@ var twilio = require('../helpers/twilioClient.js');
 var Firebase = require('firebase');
 var fbRef = new Firebase('https://eatsafesf.firebaseio.com');
 var userNumbersRef = fbRef.child('userNumbers');
+var restaurantsRef = fbRef.child('restaurants');
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -18,13 +19,15 @@ router.post('/', function(req, res) {
 });
 
 var checkVenueSafety = function (req, res, checkin) {
-  var venue = checkin.venue;
-  console.log(venue);
+  var venueId = checkin.venue.id;
+  console.log(venueId);
 
-  if(checkin.venue.name[0] === 'S') {
-    sendAlertToUser(req, res, checkin);
-  }
-
+  var venueRef = restaurantsRef.child(venueId);
+  venueRef.once('value', function(venueSnapshot) {
+    if(venueSnapshot.val() !== null) {
+      sendAlertToUser(req, res, checkin);
+    }
+  });
 };
 
 var sendAlertToUser = function (req, res, checkin) {
